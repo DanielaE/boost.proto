@@ -74,6 +74,7 @@ void test_as_env()
     BOOST_CHECK_EQUAL(&e1[proto::data], &i);
 
     proto::empty_env e2 = proto::as_env(proto::empty_env());
+	(void)e2;
     proto::env<proto::data_type, int &> e3 = proto::as_env(e1);
     proto::env<proto::data_type, int &> & e4 = proto::as_env(boost::ref(e1));
     BOOST_CHECK_EQUAL(&e4, &e1);
@@ -221,6 +222,8 @@ void test_env_var()
 {
     proto::key_not_found x0 = proto::env_var<proto::data_type>(proto::empty_env());
     proto::key_not_found x1 = proto::env_var<proto::data_type>(tag0 = 42);
+	(void)x0;
+	(void)x1;
     int x2 = proto::env_var<tag0_type>(tag0 = 42);
     BOOST_CHECK_EQUAL(x2, 42);
     int x3 = proto::functional::env_var<tag0_type>()(tag0 = 42);
@@ -285,7 +288,7 @@ using namespace boost::unit_test;
 ///////////////////////////////////////////////////////////////////////////////
 // init_unit_test_suite
 //
-test_suite* init_unit_test_suite( int argc, char* argv[] )
+test_suite* init_unit_test_suite( int, char*[] )
 {
     test_suite *test = BOOST_TEST_SUITE("test for environment variables");
     test->add(BOOST_TEST_CASE(&test_as_env));

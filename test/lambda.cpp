@@ -24,6 +24,10 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(disable: 4510 4512 4610) // non-default-constructibe, non-copy-assignable types
+#endif
+
 using namespace boost;
 
 // Forward declaration of the lambda expression wrapper
@@ -178,7 +182,7 @@ using namespace unit_test;
 ///////////////////////////////////////////////////////////////////////////////
 // init_unit_test_suite
 //
-test_suite* init_unit_test_suite( int argc, char* argv[] )
+test_suite* init_unit_test_suite( int, char*[] )
 {
     test_suite *test = BOOST_TEST_SUITE("test expression template domains");
 

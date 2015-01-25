@@ -82,6 +82,7 @@ void test_noinvoke()
     ));
     
     boost::remove_pointer<Int *> t = Test()(i);
+    (void)t;
 
     BOOST_MPL_ASSERT((
         boost::is_same<
@@ -91,6 +92,7 @@ void test_noinvoke()
     ));
     
     boost::remove_pointer<Int *> * t2 = Test2()(i);
+    (void)t2;
 
     BOOST_MPL_ASSERT((
         boost::is_same<
@@ -100,13 +102,14 @@ void test_noinvoke()
     ));
     
     select2nd<void, Int *> t3 = Test3()(i);
+    (void)t3;
 }
 
 using namespace boost::unit_test;
 ///////////////////////////////////////////////////////////////////////////////
 // init_unit_test_suite
 //
-test_suite* init_unit_test_suite( int argc, char* argv[] )
+test_suite* init_unit_test_suite( int, char*[] )
 {
     test_suite *test = BOOST_TEST_SUITE("test proto::noinvoke");
 
