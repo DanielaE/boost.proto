@@ -32,6 +32,8 @@ struct my_expr
     {}
 
     typedef fusion::fusion_sequence_tag tag;
+private:
+    my_expr& operator=(const my_expr&);
 };
 
 template<typename T>
@@ -57,7 +59,7 @@ using namespace boost::unit_test;
 ///////////////////////////////////////////////////////////////////////////////
 // init_unit_test_suite
 //
-test_suite* init_unit_test_suite( int argc, char* argv[] )
+test_suite* init_unit_test_suite( int, char*[] )
 {
     test_suite *test = BOOST_TEST_SUITE("test proto mpl integration via fusion");
 

@@ -10,6 +10,10 @@
 #include <boost/proto/proto.hpp>
 #include <boost/test/unit_test.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(disable: 4510 4512 4610) // non-default-constructibe, non-copy-assignable types
+#endif
+
 using namespace boost;
 
 typedef proto::terminal<int>::type term;
@@ -123,7 +127,7 @@ using namespace boost::unit_test;
 ///////////////////////////////////////////////////////////////////////////////
 // init_unit_test_suite
 //
-test_suite* init_unit_test_suite( int argc, char* argv[] )
+test_suite* init_unit_test_suite( int, char*[] )
 {
     test_suite *test = BOOST_TEST_SUITE("test constrained EDSLs");
     test->add(BOOST_TEST_CASE(&test_constrained_ops));
