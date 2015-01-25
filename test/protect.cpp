@@ -50,9 +50,13 @@ void test_protect_with_make()
     _ t = TestWithMake()(i);
     _ t1 = TestWithMake1()(i);
     int t2 = TestWithMake2()(i);
+    (void)t2;
     identity<_> t3 = TestWithMake3()(i);
+    (void)t3;
     identity<int> t4 = TestWithMake4()(i);
+    (void)t4;
     identity<identity<int> > t5 = TestWithMake5()(i);
+    (void)t5;
 }
 
 //struct TestWithWhen
@@ -86,16 +90,20 @@ void test_protect_with_when()
     //_ t = TestWithWhen()(i);
     _ t1 = TestWithWhen1()(i);
     int t2 = TestWithWhen2()(i);
+    (void)t2;
     identity<_> t3 = TestWithWhen3()(i);
+    (void)t3;
     identity<int> t4 = TestWithWhen4()(i);
+    (void)t4;
     identity<identity<int> > t5 = TestWithWhen5()(i);
+    (void)t5;
 }
 
 using namespace boost::unit_test;
 ///////////////////////////////////////////////////////////////////////////////
 // init_unit_test_suite
 //
-test_suite* init_unit_test_suite( int argc, char* argv[] )
+test_suite* init_unit_test_suite( int, char*[] )
 {
     test_suite *test = BOOST_TEST_SUITE("test proto::protect");
 

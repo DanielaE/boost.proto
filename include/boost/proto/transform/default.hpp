@@ -29,6 +29,13 @@
 #include <boost/proto/transform/arg.hpp>
 #include <boost/proto/detail/decltype.hpp>
 
+#ifdef BOOST_MSVC
+# pragma warning(push)
+# pragma warning(disable: 4244) // narrowing conversion
+# pragma warning(disable: 4239) // nonstandard extension used : 'argument' : conversion : A non-const reference may only be bound to an lvalue
+
+#endif
+
 namespace boost { namespace proto
 {
     namespace detail
@@ -593,6 +600,10 @@ namespace boost { namespace proto
     }
 
 }}
+
+#ifdef BOOST_MSVC
+# pragma warning(pop)
+#endif
 
 #endif
 
