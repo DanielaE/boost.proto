@@ -40,6 +40,7 @@ void make_test1()
 {
     proto::terminal<int>::type i = {42};
     type2type< careful<int> > res = MakeTest1()(i);
+	(void)res;
 }
 
 // Test that when substitution is done, and there is no nested ::type
@@ -85,7 +86,7 @@ using namespace boost::unit_test;
 ///////////////////////////////////////////////////////////////////////////////
 // init_unit_test_suite
 //
-test_suite* init_unit_test_suite( int argc, char* argv[] )
+test_suite* init_unit_test_suite( int, char*[] )
 {
     test_suite *test = BOOST_TEST_SUITE("test the make transform");
 

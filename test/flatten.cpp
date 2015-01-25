@@ -12,6 +12,11 @@
 #include <boost/utility/addressof.hpp>
 #include <sstream>
 
+#ifdef BOOST_MSVC
+#pragma warning(disable: 4510 4512 4610) // non-default-constructibe, non-copy-assignable types
+#pragma warning(disable: 4503) // decorated name length exceeded, name was truncated
+#endif
+
 std::ostream &operator <<(std::ostream &sout, boost::proto::tag::shift_right)
 {
     return sout << ">>";
@@ -200,7 +205,7 @@ using namespace boost::unit_test;
 ///////////////////////////////////////////////////////////////////////////////
 // init_unit_test_suite
 //
-test_suite* init_unit_test_suite( int argc, char* argv[] )
+test_suite* init_unit_test_suite( int, char*[] )
 {
     test_suite *test = BOOST_TEST_SUITE("test proto and segmented fusion integration");
 

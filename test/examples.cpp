@@ -17,6 +17,10 @@
 #include <boost/fusion/include/pop_front.hpp>
 #include <boost/test/unit_test.hpp>
 
+#if defined(_MSC_VER)
+# pragma warning(disable: 4714) // function 'xxx' marked as __forceinline not inlined
+#endif
+
 namespace mpl = boost::mpl;
 namespace proto = boost::proto;
 namespace fusion = boost::fusion;
@@ -494,7 +498,7 @@ using namespace boost::unit_test;
 ///////////////////////////////////////////////////////////////////////////////
 // init_unit_test_suite
 //
-test_suite* init_unit_test_suite( int argc, char* argv[] )
+test_suite* init_unit_test_suite( int, char*[] )
 {
     test_suite *test = BOOST_TEST_SUITE("test examples from the documentation");
 

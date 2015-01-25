@@ -39,6 +39,7 @@
 #if defined(_MSC_VER)
 # pragma warning(push)
 # pragma warning(disable : 4714) // function 'xxx' marked as __forceinline not inlined
+# pragma warning(disable : 4913) // user defined binary operator ',' exists but...
 #endif
 
 // We're STILL using Boost.Typeof on MSVC even for msvc-11.0 because of this bug:

@@ -17,6 +17,10 @@
 #include <boost/proto/proto.hpp>
 #include <boost/test/unit_test.hpp>
 
+#ifdef _MSC_VER
+# pragma warning(disable: 4180) // qualifier applied to function type has no meaning; ignored
+#endif
+
 namespace mpl = boost::mpl;
 namespace proto = boost::proto;
 namespace fusion = boost::fusion;
@@ -71,6 +75,8 @@ struct calc_expr
   : proto::extends<E, calc_expr<E>, calc_domain>
 {
     calc_expr(E const &e = E()) : calc_expr::proto_extends(e) {}
+private:
+    calc_expr& operator=(const calc_expr &);
 };
 
 calc_expr<proto::terminal<placeholder<mpl::int_<0> > >::type> _1;
@@ -122,6 +128,7 @@ void test_external_transforms()
 
     // check that we can use the dedicated slot for this purpose
     int result3 = calc_grammar()(_1 / _2, fusion::make_vector(8, 2), (42, proto::transforms = non_checked, mydata = "foo"));
+	(void)result3;
     BOOST_CHECK_EQUAL(result2, 4);
 
     checked_division checked;
@@ -129,6 +136,7 @@ void test_external_transforms()
     {
         // This should throw
         int result3 = calc_grammar()(_1 / _2, fusion::make_vector(6, 0), checked);
+		(void)result3;
         BOOST_CHECK(!"Didn't throw an exception"); // shouldn't get here!
     }
     catch(division_by_zero)
@@ -144,6 +152,7 @@ void test_external_transforms()
     {
         // This should throw
         int result4 = calc_grammar()(_1 / _2, fusion::make_vector(6, 0), (checked, mydata = test_external_transforms));
+		(void)result4;
         BOOST_CHECK(!"Didn't throw an exception"); // shouldn't get here!
     }
     catch(division_by_zero)
@@ -159,6 +168,7 @@ void test_external_transforms()
     {
         // This should throw
         int result5 = calc_grammar()(_1 / _2, fusion::make_vector(6, 0), (42, proto::transforms = checked, mydata = test_external_transforms));
+		(void)result5;
         BOOST_CHECK(!"Didn't throw an exception"); // shouldn't get here!
     }
     catch(division_by_zero)
@@ -175,7 +185,7 @@ using namespace boost::unit_test;
 ///////////////////////////////////////////////////////////////////////////////
 // init_unit_test_suite
 //
-test_suite* init_unit_test_suite( int argc, char* argv[] )
+test_suite* init_unit_test_suite( int, char*[] )
 {
     test_suite *test = BOOST_TEST_SUITE("test for external transforms");
 

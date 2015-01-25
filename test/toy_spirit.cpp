@@ -15,6 +15,10 @@
 #include <boost/proto/context.hpp>
 #include <boost/test/unit_test.hpp>
 
+#if defined(_MSC_VER)
+# pragma warning(disable: 4714) // function 'xxx' marked as __forceinline not inlined
+#endif
+
 namespace boost
 {
     // global tags
@@ -126,8 +130,8 @@ namespace boost { namespace spirit2
         inline bool in_irange(char ch, char lo, char hi)
         {
             return in_range(ch, lo, hi)
-                || in_range(std::tolower(ch), lo, hi)
-                || in_range(std::toupper(ch), lo, hi);
+                || in_range(static_cast<char>(std::tolower(ch)), lo, hi)
+                || in_range(static_cast<char>(std::toupper(ch)), lo, hi);
         }
 
         inline std::string to_istr(char const *sz)
@@ -136,8 +140,8 @@ namespace boost { namespace spirit2
             res.reserve(std::strlen(sz) * 2);
             for(; *sz; ++sz)
             {
-                res.push_back(std::tolower(*sz));
-                res.push_back(std::toupper(*sz));
+                res.push_back(static_cast<char>(std::tolower(*sz)));
+                res.push_back(static_cast<char>(std::toupper(*sz)));
             }
             return res;
         }
@@ -351,8 +355,8 @@ namespace boost { namespace spirit2
         template<typename Expr>
         result_type operator()(Expr const &expr) const
         {
-            char lo = std::tolower(proto::value(proto::child_c<1>(expr)));
-            char hi = std::toupper(proto::value(proto::child_c<1>(expr)));
+            char lo = static_cast<char>(std::tolower(proto::value(proto::child_c<1>(expr))));
+            char hi = static_cast<char>(std::toupper(proto::value(proto::child_c<1>(expr))));
             result_type that = {ichar_, {lo}, {hi}};
             return that;
         }
@@ -387,8 +391,8 @@ namespace boost { namespace spirit2
         template<typename Expr>
         result_type operator()(Expr const &expr) const
         {
-            char lo = std::tolower(proto::value(expr));
-            char hi = std::toupper(proto::value(expr));
+            char lo = static_cast<char>(std::tolower(proto::value(expr)));
+            char hi = static_cast<char>(std::toupper(proto::value(expr)));
             result_type that = {ichar_, {lo}, {hi}};
             return that;
         }
@@ -443,7 +447,7 @@ namespace boost { namespace spirit2
             result_type operator ()(
                 typename impl::expr_param expr
               , typename impl::state_param state
-              , typename impl::data_param data
+              , typename impl::data_param /*data*/
             ) const
             {
                 result_type that = {{state}, expr};
@@ -655,7 +659,7 @@ using namespace boost::unit_test;
 ///////////////////////////////////////////////////////////////////////////////
 // init_unit_test_suite
 //
-test_suite* init_unit_test_suite( int argc, char* argv[] )
+test_suite* init_unit_test_suite( int, char*[] )
 {
     test_suite *test = BOOST_TEST_SUITE("test proto and and toy spirit-2");
 

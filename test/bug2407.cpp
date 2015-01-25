@@ -40,7 +40,7 @@ struct e
 e<proto::terminal<int>::type> i;
 
 template<class E>
-std::ostream &operator<<(std::ostream &sout, e<E> const &x)
+std::ostream &operator<<(std::ostream &sout, e<E> const &)
 {
     return sout;
 }

@@ -24,6 +24,7 @@
 #if defined(_MSC_VER)
 # pragma warning(push)
 # pragma warning(disable : 4714) // function 'xxx' marked as __forceinline not inlined
+# pragma warning(disable : 4180) // qualifier applied to function type has no meaning; ignored
 #endif
 
 namespace boost { namespace proto

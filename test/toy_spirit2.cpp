@@ -22,6 +22,10 @@
 #include <boost/fusion/include/any.hpp>
 #include <boost/test/unit_test.hpp>
 
+#if defined(_MSC_VER)
+# pragma warning(disable: 4714) // function 'xxx' marked as __forceinline not inlined
+#endif
+
 namespace boost
 {
     // global tags
@@ -77,8 +81,8 @@ namespace boost { namespace spirit2
         inline bool in_irange(char ch, char lo, char hi)
         {
             return in_range(ch, lo, hi)
-                || in_range(std::tolower(ch), lo, hi)
-                || in_range(std::toupper(ch), lo, hi);
+                || in_range(static_cast<char>(std::tolower(ch)), lo, hi)
+                || in_range(static_cast<char>(std::toupper(ch)), lo, hi);
         }
 
         inline std::string to_istr(char const *sz)
@@ -87,8 +91,8 @@ namespace boost { namespace spirit2
             res.reserve(std::strlen(sz) * 2);
             for(; *sz; ++sz)
             {
-                res.push_back(std::tolower(*sz));
-                res.push_back(std::toupper(*sz));
+                res.push_back(static_cast<char>(std::tolower(*sz)));
+                res.push_back(static_cast<char>(std::toupper(*sz)));
             }
             return res;
         }
@@ -123,8 +127,8 @@ namespace boost { namespace spirit2
     struct ichar
     {
         ichar(char ch)
-          : lo_(std::tolower(ch))
-          , hi_(std::toupper(ch))
+          : lo_(static_cast<char>(std::tolower(ch)))
+          , hi_(static_cast<char>(std::toupper(ch)))
         {}
 
         char lo_, hi_;
@@ -320,7 +324,7 @@ namespace boost { namespace spirit2
             return fusion::fold(sequence.elems, true, fold_sequence<Iterator>(*this));
         }
 
-        bool operator ()(char_tag ch) const
+        bool operator ()(char_tag) const
         {
             if(this->done())
                 return false;
@@ -456,7 +460,7 @@ using namespace boost::unit_test;
 ///////////////////////////////////////////////////////////////////////////////
 // init_unit_test_suite
 //
-test_suite* init_unit_test_suite( int argc, char* argv[] )
+test_suite* init_unit_test_suite( int, char*[] )
 {
     test_suite *test = BOOST_TEST_SUITE("test proto, grammars and tree transforms");
 
