@@ -524,6 +524,8 @@ namespace boost { namespace proto
             // nested preprocessor loops, use file iteration here to generate
             // the operator() overloads, which is more efficient.
             #include <boost/proto/detail/extends_funop_const.hpp>
+
+            extends& operator=(const extends&);
         };
 
         /// \brief extends\<\> class template for adding behaviors to a Proto expression template
@@ -555,6 +557,8 @@ namespace boost { namespace proto
             // nested preprocessor loops, use file iteration here to generate
             // the operator() overloads, which is more efficient.
             #include <boost/proto/detail/extends_funop.hpp>
+
+            extends& operator=(const extends&);
         };
 
         /// INTERNAL ONLY

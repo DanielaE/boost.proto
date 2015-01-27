@@ -52,6 +52,7 @@ namespace boost { namespace proto
 
         private:
             Data d_;
+            as_callable& operator=(const as_callable&);
         };
 
         template<

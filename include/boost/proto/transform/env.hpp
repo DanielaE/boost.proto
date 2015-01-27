@@ -30,6 +30,7 @@
 #ifdef _MSC_VER
 # pragma warning(push)
 # pragma warning(disable: 4180) // qualifier applied to function type has no meaning; ignored
+# pragma warning(disable: 4709) // comma operator within array index expression
 #endif
 
 namespace boost
@@ -100,6 +101,7 @@ namespace boost
             {
             private:
                 Value value_;
+                env &operator=(const env &);
 
             public:
                 typedef Value value_type;
