@@ -75,10 +75,10 @@
           , typename reverse_fold_impl::data_param d
         ) const
         {
-            state2 s2 =
+            state2 s2_ =
                 typename when<_, State0>::template impl<Expr, State, Data>()(e, s, d);
-            state1 s1 = typename when<_, Fun>::template impl< typename result_of::child_c< Expr , 1 >::type , state2 , Data >()( proto::child_c<1>(e) , s2 , d ); state0 s0 = typename when<_, Fun>::template impl< typename result_of::child_c< Expr , 0 >::type , state1 , Data >()( proto::child_c<0>(e) , s1 , d );
-            return s0;
+            state1 s1_ = typename when<_, Fun>::template impl< typename result_of::child_c< Expr , 1 >::type , state2 , Data >()( proto::child_c<1>(e) , s2_ , d ); state0 s0_ = typename when<_, Fun>::template impl< typename result_of::child_c< Expr , 0 >::type , state1 , Data >()( proto::child_c<0>(e) , s1_ , d );
+            return s0_;
         }
     };
     template<typename State0, typename Fun, typename Expr, typename State, typename Data>
@@ -94,10 +94,10 @@
           , typename fold_impl::data_param d
         ) const
         {
-            state0 s0 =
+            state0 s0_ =
                 typename when<_, State0>::template impl<Expr, State, Data>()(e, s, d);
-            state1 s1 = typename when<_, Fun>::template impl< typename result_of::child_c<Expr, 0>::type , state0 , Data >()( proto::child_c< 0>(e) , s0 , d ); state2 s2 = typename when<_, Fun>::template impl< typename result_of::child_c<Expr, 1>::type , state1 , Data >()( proto::child_c< 1>(e) , s1 , d ); state3 s3 = typename when<_, Fun>::template impl< typename result_of::child_c<Expr, 2>::type , state2 , Data >()( proto::child_c< 2>(e) , s2 , d );
-            return s3;
+            state1 s1_ = typename when<_, Fun>::template impl< typename result_of::child_c<Expr, 0>::type , state0 , Data >()( proto::child_c< 0>(e) , s0_ , d ); state2 s2 = typename when<_, Fun>::template impl< typename result_of::child_c<Expr, 1>::type , state1 , Data >()( proto::child_c< 1>(e) , s1_ , d ); state3 s3_ = typename when<_, Fun>::template impl< typename result_of::child_c<Expr, 2>::type , state2 , Data >()( proto::child_c< 2>(e) , s2_ , d );
+            return s3_;
         }
     };
     template<typename State0, typename Fun, typename Expr, typename State, typename Data>
