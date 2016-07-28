@@ -72,10 +72,10 @@
         typedef typename Domain::proto_generator proto_generator;
         typedef typename proto_generator::template result<proto_generator(expr_type)>::type result_type;
         BOOST_FORCEINLINE
-        result_type operator()(typename add_reference<A0 >::type a0 , typename add_reference<A1 >::type a1) const
+        result_type operator()(typename add_reference<A0 >::type a0 , typename add_reference<A1 >::type a1_) const
         {
             expr_type const that = {
-                boost::proto::detail::protoify< A0 , Domain >()(a0) , boost::proto::detail::protoify< A1 , Domain >()(a1)
+                boost::proto::detail::protoify< A0 , Domain >()(a0) , boost::proto::detail::protoify< A1 , Domain >()(a1_)
             };
             return proto_generator()(that);
         }

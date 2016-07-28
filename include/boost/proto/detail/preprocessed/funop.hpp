@@ -93,12 +93,12 @@
         BOOST_FORCEINLINE
         static type const call(
             Expr &e
-            , A0 &a0 , A1 &a1
+            , A0 &a0_ , A1 &a1_
         )
         {
             type that = {
                 e
-                , proto::as_child<Domain>(a0) , proto::as_child<Domain>(a1)
+                , proto::as_child<Domain>(a0_) , proto::as_child<Domain>(a1_)
             };
             return that;
         }
